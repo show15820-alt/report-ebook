@@ -565,6 +565,30 @@ mark.tc{background:none;font-weight:700}
 
 .er .un,.er .eb{flex:1 1 calc(100% - 4.2em);max-width:calc(100% - 4.2em);margin-left:4.2em;box-sizing:border-box}
 @media print{.hin{font-size:20px}.hin .toclist{display:grid;grid-template-columns:1fr 1fr;gap:8px}.hin .toclist button{display:flex;gap:10px;align-items:center;border:1px solid #d6dde4;border-radius:6px;background:#fff;padding:8px 12px;font:inherit}.hin .ubadge{border:1.5px solid #0b6e72;color:#0b6e72;padding:0 .3em;border-radius:4px}.hin .toclist .d{margin-left:auto;color:#5d6b78}}
+
+/* start page: clover art fills the empty space */
+.startwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,38%);gap:clamp(18px,3vw,48px);align-items:center;min-height:100%}
+.startwrap .cover.empty{max-width:none;min-width:0}
+.hero-art{margin:0;display:grid;justify-items:center;gap:10px;align-self:stretch;align-content:center;min-width:0}
+.hero-art .art{width:100%;max-width:440px;aspect-ratio:26/30;display:grid;place-items:center;position:relative}
+.hero-art .art::before{content:"";position:absolute;inset:8% 4% 14%;border-radius:50%;background:radial-gradient(closest-side,rgba(47,158,104,.16),rgba(47,158,104,0));z-index:0}
+.hero-art svg,.hero-art img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain}
+.hero-art img{border-radius:10px}
+.hero-art figcaption{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:center;font-size:.85em;color:var(--muted);letter-spacing:.1em}
+.hero-art .hops{display:flex;gap:10px;letter-spacing:0}
+.linkbtn{border:0;background:none;color:var(--green);font:inherit;font-size:.92em;cursor:pointer;padding:.2em .1em;text-decoration:underline;text-underline-offset:3px}
+@media (prefers-reduced-motion:no-preference){.hero-art svg{animation:sway 6s ease-in-out infinite;transform-origin:50% 43%}}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@media (max-width:900px){.startwrap{grid-template-columns:1fr}.hero-art .art{max-width:240px}}
+
+.startwrap{min-height:0;height:100%}
+.startwrap .cover.empty{gap:clamp(10px,2.2vh,22px);padding-top:clamp(18px,2.6vh,30px)}
+.startwrap .cover.empty .sub{font-size:1em}
+.startwrap .steps li{padding-block:.55em}
+.hero-art{align-self:center}
+.hero-art .art{width:auto;height:min(44vh,400px);max-width:100%}
+.hero-art figcaption{font-size:.8em}
+@media (max-width:900px){.startwrap{height:auto}.hero-art .art{height:200px}}
 </style>
 
 <div class="app" id="app">
@@ -653,14 +677,27 @@ const IDB={db:null,
   async put(k,v){const db=await this.open();return new Promise((res,rej)=>{const tx=db.transaction("books","readwrite");tx.objectStore("books").put(v,k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})},
   async del(k){const db=await this.open();return new Promise((res,rej)=>{const tx=db.transaction("books","readwrite");tx.objectStore("books").delete(k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})},
   async get(k){const db=await this.open();return new Promise((res,rej)=>{const r=db.transaction("books").objectStore("books").get(k);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}};
-const EMPTY={id:"empty",title:"報告電子書",sub:"尚未上傳檔案",foot:"上傳檔案後，內容會顯示在這裡",units:[null],pages:[{u:0,title:"開始",note:[],after:"empty",html:`<div class="cover empty">
+const EMPTY={id:"empty",title:"報告電子書",sub:"尚未上傳檔案",foot:"上傳檔案後，內容會顯示在這裡",units:[null],pages:[{u:0,title:"開始",note:[],after:"empty",html:`<div class="startwrap"><div class="cover empty">
   <div class="kicker">報告電子書</div>
   <h1>上傳檔案，開始製作報告</h1>
   <p class="sub">目前沒有任何資料。選擇一份 PDF 或 Word，系統會依標題自動切成單元，做成可以右翻的報告電子書。</p>
   <div class="erow"><button class="tbtn primary big-btn" type="button" id="emptyUp">選擇檔案</button><span class="hint">也可以直接把檔案拖進這個畫面</span></div>
   <ol class="steps"><li><b>上傳</b>PDF、Word（.docx）、Markdown、純文字或圖片</li><li><b>自動分單元</b>大標題變成單元標籤，小標題變成一頁</li><li><b>確認後報告</b>在「目錄」調整分段，再按「報告模式」投影</li></ol>
   <div id="resume" class="resume" hidden></div>
-</div>`}]};
+</div><figure class="hero-art" id="heroArt"><div class="art" id="heroImg"><svg class="clover" viewBox="-130 -130 260 300" role="img" aria-label="四葉幸運草">
+    <defs>
+      <linearGradient id="lfG" x1="0" y1="-90" x2="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7fd6a4"/><stop offset=".35" stop-color="#2f9e68"/><stop offset=".7" stop-color="#16764b"/><stop offset="1" stop-color="#0c4f33"/></linearGradient>
+      <linearGradient id="lfShine" x1="-40" y1="-80" x2="30" y2="-20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="stG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0c4f33"/><stop offset=".5" stop-color="#3fae76"/><stop offset="1" stop-color="#0c4f33"/></linearGradient>
+      <radialGradient id="ctrG"><stop offset="0" stop-color="#e9f7ef"/><stop offset=".5" stop-color="#9fd9b8"/><stop offset="1" stop-color="#2f9e68"/></radialGradient>
+      <filter id="lfSh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="3" dy="6" stdDeviation="5" flood-color="#06281a" flood-opacity=".35"/></filter>
+    </defs>
+    <path d="M6 10C14 60 4 100 -24 158" style="fill:none;stroke:url(#stG);stroke-width:9;stroke-linecap:round" filter="url(#lfSh)"/>
+    <g filter="url(#lfSh)"><g transform="rotate(45)"><path d="M0 0C-9-12-44-30-40-62C-37-84-11-88 0-66C11-88 37-84 40-62C44-30 9-12 0 0Z" style="fill:url(#lfG);stroke:#0a4430;stroke-width:1.5"/><path d="M0 0C-9-12-44-30-40-62C-37-84-11-88 0-66C11-88 37-84 40-62C44-30 9-12 0 0Z" style="fill:url(#lfShine)" transform="scale(.86) translate(-2 -6)"/><path d="M0-6V-62M0-30C-10-38-20-44-28-50M0-30C10-38 20-44 28-50" style="fill:none;stroke:#bfead1;stroke-width:1.6;stroke-opacity:.7;stroke-linecap:round"/></g><g transform="rotate(135)"><path d="M0 0C-9-12-44-30-40-62C-37-84-11-88 0-66C11-88 37-84 40-62C44-30 9-12 0 0Z" style="fill:url(#lfG);stroke:#0a4430;stroke-width:1.5"/><path d="M0 0C-9-12-44-30-40-62C-37-84-11-88 0-66C11-88 37-84 40-62C44-30 9-12 0 0Z" style="fill:url(#lfShine)" transform="scale(.86) translate(-2 -6)"/><path d="M0-6V-62M0-30C-10-38-20-44-28-50M0-30C10-38 20-44 28-50" style="fill:none;stroke:#bfead1;stroke-width:1.6;stroke-opacity:.7;stroke-linecap:round"/></g><g transform="rotate(225)"><path d="M0 0C-9-12-44-30-40-62C-37-84-11-88 0-66C11-88 37-84 40-62C44-30 9-12 0 0Z" style="fill:url(#lfG);stroke:#0a4430;stroke-width:1.5"/><path d="M0 0C-9-12-44-30-40-62C-37-84-11-88 0-66C11-88 37-84 40-62C44-30 9-12 0 0Z" style="fill:url(#lfShine)" transform="scale(.86) translate(-2 -6)"/><path d="M0-6V-62M0-30C-10-38-20-44-28-50M0-30C10-38 20-44 28-50" style="fill:none;stroke:#bfead1;stroke-width:1.6;stroke-opacity:.7;stroke-linecap:round"/></g><g transform="rotate(315)"><path d="M0 0C-9-12-44-30-40-62C-37-84-11-88 0-66C11-88 37-84 40-62C44-30 9-12 0 0Z" style="fill:url(#lfG);stroke:#0a4430;stroke-width:1.5"/><path d="M0 0C-9-12-44-30-40-62C-37-84-11-88 0-66C11-88 37-84 40-62C44-30 9-12 0 0Z" style="fill:url(#lfShine)" transform="scale(.86) translate(-2 -6)"/><path d="M0-6V-62M0-30C-10-38-20-44-28-50M0-30C10-38 20-44 28-50" style="fill:none;stroke:#bfead1;stroke-width:1.6;stroke-opacity:.7;stroke-linecap:round"/></g></g>
+    <circle r="9" style="fill:url(#ctrG);stroke:#0a4430;stroke-width:1.2"/>
+  </svg></div>
+  <figcaption><span id="heroCap">彰濱幸運草</span><span class="hops"><button type="button" class="linkbtn" id="heroPick">換成我的圖片</button><button type="button" class="linkbtn" id="heroReset" hidden>恢復幸運草</button></span></figcaption>
+  <input type="file" id="heroFile" accept="image/*" hidden></figure>`}]};
 let BOOK=EMPTY,UPLOADED=null,cur=0,busy=false,dir=LS.get("bcbook-dir")==="ltr"?"ltr":"rtl";
 
 /* unit badge follows the document's own numbering: 前言 → 序, "一 用數字看成果" → 一 */
@@ -674,7 +711,17 @@ function tocItems(B){return B.units.slice(1).map((u,i)=>`<button type="button" d
 function tocAfter(){const el=document.getElementById("homeToc");if(!el)return;
   el.innerHTML=tocItems(BOOK);
   el.querySelectorAll("button").forEach(b=>b.onclick=()=>go(BOOK.pages.findIndex(p=>p.u==b.dataset.u)))}
-function emptyAfter(){$("emptyUp").onclick=()=>openUp();const r=$("resume");if(!r)return;r.hidden=!UPLOADED;
+let HERO=null,heroLoaded=false;
+function heroApply(){const box=$("heroImg");if(!box)return;const custom=!!HERO;
+  if(custom){box.innerHTML=`<img src="${HERO.src}" alt="${esc(HERO.name||"自訂圖片")}">`;$("heroCap").textContent=HERO.name||"自訂圖片"}
+  $("heroReset").hidden=!custom}
+function heroInit(){if(!$("heroArt"))return;
+  $("heroPick").onclick=()=>$("heroFile").click();
+  $("heroFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;if(f.size>6e6){toast("圖片太大，請選 6 MB 以下的檔案");return}
+    HERO={src:await dataURL(f),name:f.name.replace(/\.[^.]+$/,"")};try{await IDB.put("hero",HERO)}catch(_){}paint();toast("已換成你的圖片")};
+  $("heroReset").onclick=async()=>{HERO=null;try{await IDB.del("hero")}catch(_){}paint();toast("已恢復幸運草圖案")};
+  if(heroLoaded)heroApply();else{heroLoaded=true;IDB.get("hero").then(h=>{if(h&&h.src){HERO=h;heroApply()}}).catch(()=>{})}}
+function emptyAfter(){$("emptyUp").onclick=()=>openUp();heroInit();const r=$("resume");if(!r)return;r.hidden=!UPLOADED;
   if(UPLOADED){r.innerHTML=`<span>這個瀏覽器還保留上次轉換的「${esc(UPLOADED.title)}」</span><button class="tbtn" type="button" id="resumeGo">繼續使用</button><button class="tbtn" type="button" id="resumeDel">刪除</button>`;
     $("resumeGo").onclick=()=>{BOOK=UPLOADED;mount();paint()};$("resumeDel").onclick=async()=>{await clearAll();toast("已刪除保留的資料")}}}
 function runAfter(p){if(p.after==="empty")emptyAfter();else if(p.after==="toc")tocAfter();else if(typeof p.after==="function")p.after()}
