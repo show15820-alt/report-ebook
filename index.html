@@ -472,13 +472,107 @@ mark.tc{background:none;font-weight:700}
 .toclist button{align-items:center}
 .toclist .nm{flex:1;min-width:0}
 .toclist button span.d{white-space:nowrap;margin-left:12px;font-variant-numeric:tabular-nums}
+
+/* export menu */
+.expwrap{position:relative}
+.expmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:grid;min-width:270px;padding:6px;border-radius:10px;background:var(--paper);border:1px solid var(--m-3);box-shadow:0 0 0 4px var(--m-1),0 18px 40px rgba(0,0,0,.35)}
+.expmenu button{display:grid;gap:2px;text-align:left;border:0;background:transparent;padding:.55em .7em;border-radius:6px;color:var(--ink);font-size:15px}
+.expmenu button:hover,.expmenu button:focus-visible{background:var(--green-soft)}
+.expmenu small{color:var(--muted);font-size:12.5px}
+/* page organiser */
+.er{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;cursor:default}
+.er .grip{cursor:grab;color:var(--muted);letter-spacing:-3px;font-weight:700;padding:0 2px;user-select:none}
+.er .pnum{min-width:2em;text-align:right;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.er .et{flex:1 1 220px}
+.er .un{flex:1 0 100%;margin-left:4.2em}
+.er .eb{flex:1 0 100%;margin-left:4.2em;font:inherit;font-size:14px;padding:.4em .55em;border:1.5px solid var(--line);border-radius:6px;background:var(--paper);color:var(--text);box-sizing:border-box;resize:vertical}
+.er .ops{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.er .ops button{font-size:12.5px;padding:.2em .5em;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);cursor:pointer}
+.er .ops button:hover{border-color:var(--green);color:var(--green)}
+.er .tag{font-size:11.5px;padding:.1em .45em;border-radius:3px;background:var(--green-soft);color:var(--green)}
+.er.del{opacity:.5}.er.del .et{text-decoration:line-through}
+.er.dragging{opacity:.4}
+.er.over-a{box-shadow:0 -3px 0 var(--green)}.er.over-b{box-shadow:0 3px 0 var(--green)}
+#editStat{font-weight:700;color:var(--ink)}
+/* divider pages */
+.pg.divider{display:flex;flex-direction:column;justify-content:center}
+.pg.divider h1{font-size:min(2.6em,72px);text-align:center;margin:0 0 .3em}
+.pg.divider .divider-body{text-align:center;color:var(--muted)}
+.pg.divider .rh{position:absolute;top:clamp(14px,2.2vw,28px);left:clamp(18px,2.6vw,40px);right:clamp(18px,2.6vw,40px)}
+/* QR on cover */
+.qrbox{display:flex;gap:16px;align-items:center;margin-top:1em;padding:12px;border:1px solid var(--line);border-radius:8px;width:max-content;max-width:100%;background:var(--paper)}
+.qrbox .qr{background:#fff;padding:6px;border-radius:4px;line-height:0}
+.qrbox .qr img,.qrbox .qr canvas{display:block}
+.qrbox b{display:block;color:var(--ink)}.qrbox span{font-size:.8em;color:var(--muted);word-break:break-all}
+/* overview */
+.ov{position:fixed;inset:0;z-index:35;display:flex;flex-direction:column;background:var(--desk);background-image:var(--desk-bg)}
+.ovbar{display:flex;gap:12px;align-items:center;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--brush),linear-gradient(180deg,var(--m-hi),var(--m-1) 55%,var(--m-2));border-bottom:1px solid var(--m-3)}
+.ovbar input{flex:1;min-width:0;font:inherit;font-size:17px;padding:.45em .8em;border:1.5px solid var(--m-3);border-radius:8px;background:var(--paper);color:var(--text);box-sizing:border-box}
+#ovStat{color:var(--m-sub);font-size:14px;white-space:nowrap}
+.ovgrid{flex:1;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:14px;align-content:start;padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovc{display:grid;grid-template-columns:auto auto 1fr;gap:6px 8px;align-items:center;text-align:left;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--text);padding:10px;cursor:pointer;box-shadow:0 4px 12px -8px rgba(0,0,0,.5)}
+.ovc:hover,.ovc:focus-visible{border-color:var(--green)}
+.ovc.now{outline:3px solid var(--green);outline-offset:1px}
+.ovc .ovn{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
+.ovc b{font-size:14px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.ovc img{grid-column:1/-1;width:100%;height:120px;object-fit:contain;object-position:top;background:#fff;border-radius:4px}
+.ovc .ovs{grid-column:1/-1;font-size:13px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;min-height:4.5em}
+/* laser + spotlight + timer */
+.app.lasering .desk,.app.lasering .desk *{cursor:none!important}
+.laser{position:fixed;left:0;top:0;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;z-index:60;pointer-events:none;transform:translate(var(--lx,-100px),var(--ly,-100px));
+  background:radial-gradient(circle,#fff 0 18%,#ff2a2a 34%,rgba(255,0,0,.55) 60%,rgba(255,0,0,0) 72%);box-shadow:0 0 14px 6px rgba(255,30,30,.55)}
+.spot{position:fixed;inset:0;z-index:59;pointer-events:none;background:radial-gradient(circle 150px at var(--lx,50%) var(--ly,50%),rgba(0,0,0,0) 0 82%,rgba(0,0,0,.66) 100%)}
+.tmwrap{position:relative}
+.tmpop{position:absolute;bottom:calc(100% + 10px);right:0;z-index:30;display:grid;gap:8px;width:210px;padding:12px;border-radius:10px;color:var(--gun-fg);border:1px solid var(--gun-edge);background:var(--brush),linear-gradient(180deg,var(--gun-hi),var(--gun-1) 40%,var(--gun-2));box-shadow:0 14px 30px rgba(0,0,0,.45)}
+.tmpop label{font-size:13px;color:#c9d3db}
+.tmpop input{font:inherit;font-size:18px;padding:.25em .5em;border-radius:6px;border:1px solid var(--gun-edge);background:#151a1e;color:#fff;width:100%;box-sizing:border-box}
+.tmpop .drow{justify-content:space-between}
+.bbtn.on{background:linear-gradient(180deg,var(--anod-hi),var(--anod-1) 48%,var(--anod-2));color:#fff}
+#btnTimer{font-variant-numeric:tabular-nums}
+#btnTimer[data-st="warn"],.tmfloat[data-st="warn"]{background:linear-gradient(180deg,#f2b648,#c98411);color:#1b1205;text-shadow:none}
+#btnTimer[data-st="over"],.tmfloat[data-st="over"]{background:linear-gradient(180deg,#ef5350,#b71c1c);color:#fff}
+.tmfloat{display:none}
+.app.present~.tmfloat:not([hidden]){display:block;position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));z-index:40;padding:.25em .7em;border-radius:8px;font-size:20px;font-variant-numeric:tabular-nums;color:var(--gun-fg);background:linear-gradient(180deg,var(--gun-hi),var(--gun-2));border:1px solid var(--gun-edge);box-shadow:0 6px 16px rgba(0,0,0,.35)}
+/* handout print */
+#printArea{display:none}
+@media print{
+  @page{size:A4 portrait;margin:11mm}
+  body{background:#fff!important;background-image:none!important}
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important;color:#24313d;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+    --paper:#fff;--ink:#11304d;--text:#24313d;--muted:#5d6b78;--line:#d6dde4;--grid:#eef2f5;--green:#0b6e72;--green-soft:#e5f1f1;--on-green:#fff;--hl-y:#fff176;--hl-g:#b9f6ca;--hl-p:#ffc8df;--hl-b:#c4e6ff;--tc-r:#c62828;--tc-b:#1d4ed8}
+  .hhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #11304d;padding-bottom:3mm;margin-bottom:4mm}
+  .hhead b{font-size:15pt;color:#11304d;display:block}.hhead span{font-size:9pt;color:#5d6b78}
+  .hqr img,.hqr canvas{width:22mm!important;height:22mm!important}
+  .hsheet{break-after:page;display:grid;gap:5mm}
+  .hsheet:last-child{break-after:auto}
+  .hrow{display:grid;gap:4mm;break-inside:avoid}
+  .per3 .hrow{grid-template-columns:110mm 1fr}
+  .per2 .hrow{grid-template-columns:1fr}
+  .hsl{position:relative;aspect-ratio:16/9;border:.3mm solid #8d959e;overflow:hidden;background:#fff}
+  .per3 .hsl{width:110mm}.per2 .hsl{width:150mm;margin:0 auto}
+  .hin{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;display:flex;flex-direction:column;padding:28px 40px 10px;box-sizing:border-box;font-size:24px;line-height:1.55;font-family:var(--f-body);overflow:hidden}
+  .per3 .hin{transform:scale(.3255)}.per2 .hin{transform:scale(.4438)}
+  .hin .pg h1{font-size:44px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 0 .4em}
+  .hin .pg.pdfmode{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
+  .hin .pfoot{margin-top:auto;display:flex;justify-content:space-between;border-top:1px solid #d6dde4;padding-top:6px;font-size:14px;color:#5d6b78;position:static}
+  .hin .rh{font-size:15px}
+  .hnote{font-size:9pt;display:flex;flex-direction:column;gap:2mm}
+  .hnote ul{margin:0;padding-left:4mm}
+  .hlines{flex:1;min-height:24mm;background:repeating-linear-gradient(to bottom,transparent 0 6.6mm,#c5ccd3 6.6mm 6.9mm)}
+  .per2 .hlines{min-height:28mm}
+}
+
+.er .un,.er .eb{flex:1 1 calc(100% - 4.2em);max-width:calc(100% - 4.2em);margin-left:4.2em;box-sizing:border-box}
+@media print{.hin{font-size:20px}.hin .toclist{display:grid;grid-template-columns:1fr 1fr;gap:8px}.hin .toclist button{display:flex;gap:10px;align-items:center;border:1px solid #d6dde4;border-radius:6px;background:#fff;padding:8px 12px;font:inherit}.hin .ubadge{border:1.5px solid #0b6e72;color:#0b6e72;padding:0 .3em;border-radius:4px}.hin .toclist .d{margin-left:auto;color:#5d6b78}}
 </style>
 
 <div class="app" id="app">
   <header class="top"><b id="bookTitle"></b><span class="bt" id="bookSub"></span><span class="sp"></span>
     <div class="tools">
       <div class="seg" role="group" aria-label="翻頁方向"><button type="button" id="dirR" aria-pressed="true" title="書脊在右，往右翻（直排書）">右翻</button><button type="button" id="dirL" aria-pressed="false" title="書脊在左，往左翻">左翻</button></div>
-      <button class="tbtn" id="btnPpt" type="button" hidden>匯出 PPT</button>
+      <span class="expwrap"><button class="tbtn" id="btnExport" type="button" hidden aria-haspopup="true" aria-expanded="false">匯出 ▾</button>
+        <span class="expmenu" id="expMenu" hidden role="menu"><button type="button" id="btnPpt" role="menuitem"><b>PowerPoint 簡報</b><small>每頁一張投影片，含講師筆記</small></button><button type="button" id="btnHandout" role="menuitem"><b>講義 PDF</b><small>一張紙印 2 或 3 頁，附筆記欄</small></button><button type="button" id="btnBookOut" role="menuitem"><b>書檔（.json）</b><small>含標色、筆記、分頁設定，換電腦匯入就能用</small></button></span></span>
       <button class="tbtn" id="btnSample" type="button" hidden>看範例書</button>
       <button class="tbtn primary" id="btnUp" type="button">上傳檔案</button>
     </div>
@@ -496,6 +590,10 @@ mark.tc{background:none;font-weight:700}
     <div class="dots" id="dots"></div>
     <span class="count" id="count"></span>
     <button class="bbtn" id="btnR" type="button" aria-label="上一頁">▶</button>
+    <button class="bbtn" id="btnOv" type="button">總覽</button>
+    <button class="bbtn" id="btnLaser" type="button" aria-pressed="false">雷射筆</button>
+    <span class="tmwrap"><button class="bbtn" id="btnTimer" type="button">計時 15:00</button>
+      <span class="tmpop" id="tmPop" hidden><label for="tmMin">報告時間（分鐘）</label><input type="number" id="tmMin" min="1" max="240" value="15"><span class="drow"><button class="bbtn" id="tmReset" type="button">重設</button><button class="bbtn on" id="tmStart" type="button">開始</button></span></span></span>
     <button class="bbtn" id="btnInk" type="button" aria-pressed="false">標色</button>
     <button class="bbtn" id="btnNote" type="button" aria-pressed="false">筆記</button>
     <button class="bbtn" id="btnFs" type="button" aria-pressed="false">報告模式</button>
@@ -503,15 +601,15 @@ mark.tc{background:none;font-weight:700}
 </div>
 <aside class="note" id="note" hidden aria-live="polite"></aside>
 <div class="toc" id="toc" hidden><div class="tocp" role="dialog" aria-label="目錄">
-  <div class="toch"><h2>目錄</h2><button class="tbtn" id="btnEdit" type="button" hidden>調整單元與標題</button></div>
+  <div class="toch"><h2 id="tocTitle">目錄</h2><button class="tbtn" id="btnEdit" type="button" hidden>整理頁面</button></div>
   <ol id="tocList"></ol>
-  <div id="editBox" hidden><p class="hint">勾選「新單元」的頁面會變成右側單元標籤的起點，標題可以直接修改。</p><div id="editRows" class="erows"></div>
+  <div id="editBox" hidden><p class="hint">拖拉 ⋮⋮ 或按 ↑↓ 調整順序；「刪除」可以再按「復原」；勾選「新單元」會變成側邊標籤的起點。按「套用」後才會生效。</p><p class="hint" id="editStat"></p><div id="editRows" class="erows"></div>
   <div class="drow"><button class="tbtn" id="editCancel" type="button">取消</button><button class="tbtn primary" id="editSave" type="button">套用</button></div></div>
 </div></div>
 <div class="toc" id="up" hidden><div class="dlg" role="dialog" aria-label="上傳檔案">
   <h2>上傳檔案，做成點子書</h2>
-  <label class="drop" id="drop" for="file" tabindex="0"><b>點這裡選擇檔案，或直接拖曳進來</b><small>PDF、Word（.docx）、Markdown、純文字、圖片（可一次選多張）</small><span id="dropName">尚未選擇檔案</span></label>
-  <input type="file" id="file" accept=".pdf,.docx,.md,.markdown,.txt,image/*" multiple hidden>
+  <label class="drop" id="drop" for="file" tabindex="0"><b>點這裡選擇檔案，或直接拖曳進來</b><small>PDF、Word（.docx）、Markdown、純文字、圖片（可一次選多張），或之前匯出的書檔（.json）</small><span id="dropName">尚未選擇檔案</span></label>
+  <input type="file" id="file" accept=".pdf,.docx,.md,.markdown,.txt,.json,image/*" multiple hidden>
   <div class="fld"><label for="bkTitle">書名</label><input type="text" id="bkTitle" placeholder="預設使用檔名" autocomplete="off"></div>
   <fieldset id="pdfOpt" hidden><legend class="lg">PDF 要怎麼放進筆記本</legend>
     <label class="opt"><input type="radio" name="pdfmode" id="pmFill" value="fill" checked><span><b>填滿版面</b>：自動裁掉原檔白邊，長頁面在空白處切成數頁，每頁都撐滿畫面，圖表完整保留。</span></label>
@@ -525,6 +623,15 @@ mark.tc{background:none;font-weight:700}
 </div></div>
 <div class="dropall" id="dropall" hidden>放開檔案，轉成點子書</div>
 <div class="toast" id="toast" hidden role="status"></div>
+<div class="ov" id="ov" hidden role="dialog" aria-label="頁面總覽與搜尋"><div class="ovbar"><input type="search" id="ovQ" placeholder="搜尋全文，例如 HER2、存活率" aria-label="搜尋全文"><span id="ovStat"></span><button class="tbtn" id="ovClose" type="button">關閉</button></div><div class="ovgrid" id="ovGrid"></div></div>
+<div class="toc" id="hoDlg" hidden><div class="dlg" role="dialog" aria-label="列印講義"><h2>列印講義</h2>
+  <fieldset><legend class="lg">一張 A4 放幾頁</legend><label class="opt"><input type="radio" name="hoper" id="ho3" checked><span><b>3 頁</b>：左邊投影片、右邊筆記欄，最省紙</span></label><label class="opt"><input type="radio" name="hoper" id="ho2"><span><b>2 頁</b>：投影片較大，下方有筆記欄</span></label></fieldset>
+  <label class="opt"><input type="checkbox" id="hoNotes" checked><span>附上講師筆記</span></label>
+  <p class="hint">在列印視窗的「目的地」選「另存為 PDF」，就能得到 PDF 講義。claude.ai 裡的版本不能開啟列印視窗，請改用 GitHub Pages 的網址列印。</p>
+  <div class="drow"><button class="tbtn" id="hoCancel" type="button">取消</button><button class="tbtn primary" id="hoGo" type="button">開始列印</button></div></div></div>
+<div id="printArea" hidden></div>
+<div class="laser" id="laser" hidden aria-hidden="true"></div><div class="spot" id="spot" hidden aria-hidden="true"></div>
+<div class="tmfloat" id="tmFloat" hidden aria-live="off"></div>
 <div class="inkbar" id="inkbar" hidden role="toolbar" aria-label="標色工具">
   <span class="ih" id="inkHint">選取文字就會上色</span>
   <span class="grp"><button class="sw" type="button" data-c="y" title="黃色螢光筆" aria-pressed="true"><i style="background:#ffd400"></i></button><button class="sw" type="button" data-c="g" title="綠色螢光筆" aria-pressed="false"><i style="background:#3ddc84"></i></button><button class="sw" type="button" data-c="p" title="粉紅螢光筆" aria-pressed="false"><i style="background:#ff5fa2"></i></button><button class="sw" type="button" data-c="b" title="藍色螢光筆" aria-pressed="false"><i style="background:#38b6ff"></i></button></span>
@@ -563,8 +670,9 @@ function unitC(units,i){const n=(units[i].name||"").trim();if(/^(前言|序言?|
 function relabel(B){if(B&&B.units)B.units.forEach((u,i)=>{if(u)u.c=unitC(B.units,i)})}
 function unitLabel(u){return u.c==="序"?"前言":`第${u.c}單元`}
 function pageRange(B,k){let a=-1,b=-1;B.pages.forEach((p,i)=>{if(p.u===k){if(a<0)a=i;b=i}});if(a<0)return"";return a===b?`第 ${a+1} 頁`:`第 ${a+1}–${b+1} 頁`}
+function tocItems(B){return B.units.slice(1).map((u,i)=>`<button type="button" data-u="${i+1}"><span class="ubadge">${u.c}</span><span class="nm">${esc(u.name)}</span><span class="d">${pageRange(B,i+1)}</span></button>`).join("")}
 function tocAfter(){const el=document.getElementById("homeToc");if(!el)return;
-  el.innerHTML=BOOK.units.slice(1).map((u,i)=>`<button type="button" data-u="${i+1}"><span class="ubadge">${u.c}</span><span class="nm">${esc(u.name)}</span><span class="d">${pageRange(BOOK,i+1)}</span></button>`).join("");
+  el.innerHTML=tocItems(BOOK);
   el.querySelectorAll("button").forEach(b=>b.onclick=()=>go(BOOK.pages.findIndex(p=>p.u==b.dataset.u)))}
 function emptyAfter(){$("emptyUp").onclick=()=>openUp();const r=$("resume");if(!r)return;r.hidden=!UPLOADED;
   if(UPLOADED){r.innerHTML=`<span>這個瀏覽器還保留上次轉換的「${esc(UPLOADED.title)}」</span><button class="tbtn" type="button" id="resumeGo">繼續使用</button><button class="tbtn" type="button" id="resumeDel">刪除</button>`;
@@ -580,7 +688,7 @@ function mount(){
   $("dots").querySelectorAll(".dot").forEach(d=>d.onclick=()=>go(+d.dataset.i));
   $("tocList").innerHTML=B.pages.map((p,i)=>`<li><button type="button" data-i="${i}"><span class="pn">${i+1}</span>${p.u?`<span class="ubadge">${B.units[p.u].c}</span>`:""}${esc(p.title)}</button></li>`).join("");
   $("tocList").querySelectorAll("button").forEach(b=>b.onclick=()=>{$("toc").hidden=true;go(+b.dataset.i)});
-  $("btnEdit").hidden=B===EMPTY;$("btnPpt").hidden=B===EMPTY;
+  $("btnEdit").hidden=B===EMPTY;$("btnExport").hidden=B===EMPTY;
   const sb=$("btnSample");
   sb.hidden=B===EMPTY;sb.textContent="清除資料";sb.dataset.arm="";
   const s=parseInt(LS.get("bcbook-page-"+B.id),10);cur=s>=0&&s<B.pages.length?s:0;
@@ -588,20 +696,20 @@ function mount(){
 function pageHTML(i){const p=BOOK.pages[i],u=BOOK.units[p.u],n=BOOK.pages.length;
   const head=u?`<div class="rh"><span><b>${unitLabel(u)}</b>　${esc(u.name)}</span><span>${esc(BOOK.title)}</span></div><h1>${esc(p.title)}</h1>`:"";
   const foot=BOOK.foot||(BOOK.src?`資料來源：${BOOK.src}`:BOOK.title);
-  const cls=/class="pdfpage fill"/.test(p.html)?" pdfmode":/class="flowtext"/.test(p.html)?" fit":"";
+  const cls=(p.kind==="divider"?" divider":"")+(/class="pdfpage fill"/.test(p.html)?" pdfmode":/class="flowtext/.test(p.html)?" fit":"");
   return `<div class="pg${cls}">${head}${p.html}</div><div class="pfoot"><span>${esc(foot)}</span><span class="num">${i+1} / ${n}</span></div>`}
 function noteKey(){return `bcbook-note-${BOOK.id}-${cur}`}
 function paint(){
   const B=BOOK,p=B.pages[cur];
-  $("paper").innerHTML=pageHTML(cur);$("paper").scrollTop=0;runAfter(p);fitTitle();fitText();fitTitle();placeInk();inkHint();
+  $("paper").innerHTML=pageHTML(cur);$("paper").scrollTop=0;runAfter(p);fitTitle();fitText();fitTitle();placeInk();inkHint();coverQR();
   $("count").textContent=`${cur+1} / ${B.pages.length}`;
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",+t.dataset.u===p.u));
   document.querySelectorAll(".dot").forEach((d,i)=>d.setAttribute("aria-current",i===cur));
   document.querySelectorAll("#tocList button").forEach((b,i)=>b.setAttribute("aria-current",i===cur));
   if(B===EMPTY){$("note").innerHTML=`<div class="h">講師筆記</div><p style="margin:0">上傳檔案後，每一頁都可以加上講師筆記。</p>`;updBtns();return}
-  const k=noteKey();let lines=p.note||[];const saved=LS.get(k);if(saved!=null){try{lines=JSON.parse(saved)}catch(e){}}
+  const pi=cur;let lines=getNote(cur);
   $("note").innerHTML=`<div class="h">講師筆記　${cur+1} / ${B.pages.length}<span>點文字可直接修改</span></div><ul id="noteUl" contenteditable="true" spellcheck="false" aria-label="講師筆記">${lines.map(l=>`<li>${esc(l)}</li>`).join("")}</ul>`;
-  $("noteUl").addEventListener("blur",e=>{const v=e.target.innerText.split("\n").map(s=>s.trim()).filter(Boolean);LS.set(k,JSON.stringify(v))});
+  $("noteUl").addEventListener("blur",e=>{const v=e.target.innerText.split("\n").map(s=>s.trim()).filter(Boolean);if(BOOK.pages[pi]){BOOK.pages[pi].userNote=v;saveBook()}});
   updBtns();LS.set("bcbook-page-"+B.id,cur);
 }
 /* grow the font until the text fills the page */
@@ -655,18 +763,6 @@ $("btnR").onclick=()=>dir==="rtl"?prev():next();
 $("dirR").onclick=()=>setDir("rtl");$("dirL").onclick=()=>setDir("ltr");
 $("btnNote").onclick=()=>{const n=$("note");n.hidden=!n.hidden;$("btnNote").setAttribute("aria-pressed",!n.hidden)};
 $("btnToc").onclick=()=>{$("toc").hidden=false;showEdit(false)};
-function showEdit(on){$("editBox").hidden=!on;$("tocList").hidden=on;$("btnEdit").hidden=on||BOOK===EMPTY;if(!on)return;
-  const B=BOOK;let prevU=-1;
-  $("editRows").innerHTML=B.pages.map((p,i)=>{if(i<2)return"";const st=p.u!==prevU;prevU=p.u;const first=i===2;
-    return `<div class="er${st?" start":""}" data-i="${i}"><label><input type="checkbox" id="es${i}" ${st?"checked":""} ${first?"disabled":""}>新單元</label><input type="text" id="et${i}" value="${esc(p.title)}" aria-label="第 ${i+1} 頁標題"><input class="un" type="text" id="eu${i}" value="${esc(B.units[p.u]?B.units[p.u].name:p.title)}" placeholder="單元名稱" aria-label="單元名稱" ${st?"":"hidden"}></div>`}).join("");
-  $("editRows").querySelectorAll("input[type=checkbox]").forEach(c=>c.onchange=()=>{const r=c.closest(".er"),i=r.dataset.i;r.classList.toggle("start",c.checked);$("eu"+i).hidden=!c.checked;if(c.checked&&!$("eu"+i).value)$("eu"+i).value=$("et"+i).value})}
-$("btnEdit").onclick=()=>showEdit(true);
-$("editCancel").onclick=()=>showEdit(false);
-$("editSave").onclick=async()=>{const B=BOOK,units=[null];let u=0;
-  B.pages.forEach((p,i)=>{if(i<2)return;const t=$("et"+i).value.trim()||p.title;p.title=t;
-    if(i===2||$("es"+i).checked){units.push({c:cn(units.length),name:$("eu"+i).value.trim()||t});u=units.length-1}p.u=u});
-  B.units=units;B.sub=`${units.length-1} 個單元 · ${B.pages.length} 頁`;if(B.src)B.pages[0].html=coverHTML(B.title,units.length-1,B.pages.length-2,B.src);
-  const c=cur;mount();cur=c;paint();showEdit(false);$("toc").hidden=true;toast(`已更新為 ${units.length-1} 個單元`);try{await IDB.put("current",B)}catch(e){}};
 $("toc").onclick=e=>{if(e.target.id==="toc")$("toc").hidden=true};
 function setPresent(on){$("app").classList.toggle("present",on);$("btnFs").setAttribute("aria-pressed",on);
   try{if(on&&!document.fullscreenElement){const r=document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();r&&r.catch&&r.catch(()=>{})}else if(!on&&document.fullscreenElement)document.exitFullscreen()}catch(e){}
@@ -681,6 +777,8 @@ $("btnSample").onclick=async()=>{const b=$("btnSample");
 document.addEventListener("keydown",e=>{
   if(e.target.closest&&e.target.closest("input,textarea,[contenteditable]"))return;
   if(!$("up").hidden){if(e.key==="Escape")closeUp();return}
+  if(!$("ov").hidden){if(e.key==="Escape")$("ov").hidden=true;return}
+  if(e.key==="Escape"&&laser){setLaser(0);return}
   if(e.key==="ArrowLeft"){(dir==="rtl"?next:prev)();e.preventDefault()}
   else if(e.key==="ArrowRight"){(dir==="rtl"?prev:next)();e.preventDefault()}
   else if(e.key==="PageDown"){next();e.preventDefault()}else if(e.key==="PageUp"){prev();e.preventDefault()}
@@ -689,6 +787,9 @@ document.addEventListener("keydown",e=>{
   else if(e.key==="t"||e.key==="T")$("toc").hidden=!$("toc").hidden;
   else if(e.key==="f"||e.key==="F")$("btnFs").click();
   else if(e.key==="h"||e.key==="H")$("btnInk").click();
+  else if(e.key==="g"||e.key==="G")openOv(false);
+  else if(e.key==="/"){e.preventDefault();openOv(true)}
+  else if(e.key==="l"||e.key==="L")$("btnLaser").click();
   else if(e.key==="Escape"){if(!$("toc").hidden)$("toc").hidden=true;else if($("app").classList.contains("present"))setPresent(false)}
 });
 let tx=null,ty=0;
@@ -870,6 +971,7 @@ async function convert(){
       else if(ext==="docx")blocks.push(...await fromDocx(f));
       else if(ext==="md"||ext==="markdown")blocks.push(...fromText(await f.text(),true));
       else if(ext==="txt")blocks.push(...fromText(await f.text(),false));
+      else if(ext==="json"){const b=await fromBookFile(f);if(UPLOADED&&UPLOADED.id!==b.id)purge(UPLOADED.id);UPLOADED=BOOK=b;mount();cur=0;paint();closeUp();toast(`已還原「${b.title}」，共 ${b.pages.length} 頁`);try{await IDB.put("current",b)}catch(e){toast("已還原，但瀏覽器沒有空間保存")}return}
       else if(/^image\//.test(f.type)){blocks.push({t:"h",lvl:5,text:f.name.replace(/\.[^.]+$/,"")},{t:"html",html:`<div class="pdfpage"><img src="${await dataURL(f)}" alt=""></div>`,w:1e5,brk:true})}
       else throw new Error(`「${f.name}」的格式還不支援，請改用 PDF、Word、Markdown、純文字或圖片。`)}
     const book=buildBook(blocks,title,files.map(f=>f.name).join("、"));
@@ -990,7 +1092,7 @@ function chrome(sl,unitLabel,bookTitle,src,num,total){
   sl.addShape("line",{x:.6,y:6.98,w:XW-1.2,h:0,line:{color:"D6DDE4",width:.75}});
   sl.addText(src,{x:.6,y:7.02,w:9,h:.32,fontFace:FF,fontSize:9,color:"5D6B78",margin:0,valign:"middle"});
   sl.addText(`${num} / ${total}`,{x:XW-2.6,y:7.02,w:2,h:.32,fontFace:FF,fontSize:9,color:"5D6B78",align:"right",margin:0,valign:"middle"})}
-function noteText(i){let lines=BOOK.pages[i].note||[];const s=LS.get(`bcbook-note-${BOOK.id}-${i}`);if(s!=null){try{lines=JSON.parse(s)}catch(e){}}return lines.join("\n")}
+function noteText(i){return getNote(i).join("\n")}
 async function buildPptx(){
   if(typeof PptxGenJS==="undefined")await loadAny(PPTXJS);if(typeof JSZip==="undefined")await loadAny(JSZIPJS);
   const B=BOOK,pptx=new PptxGenJS();pptx.layout="LAYOUT_WIDE";pptx.title=B.title;pptx.author="報告電子書";
@@ -1042,6 +1144,125 @@ $("btnPpt").onclick=async()=>{if(exporting||BOOK===EMPTY)return;exporting=true;c
     await dl.save({filename:name,data:blob});toast(`已匯出「${name}」，共 ${BOOK.pages.length} 張投影片`)}
   catch(e){const c=e&&e.code;toast(c==="declined"?"已取消下載":c==="rate_limited"?"下載視窗已開啟，請先完成或關閉它":c==="too_large"?"檔案太大，無法匯出":(e&&e.message)||"匯出失敗，請再試一次");console.error(e)}
   finally{exporting=false;b.disabled=false}};
+
+/* ---------- shared helpers ---------- */
+function getNote(i){const p=BOOK.pages[i];if(!p)return[];if(Array.isArray(p.userNote))return p.userNote;
+  const s=LS.get(`bcbook-note-${BOOK.id}-${i}`);if(s!=null){try{return p.userNote=JSON.parse(s)}catch(e){}}return p.note||[]}
+function purgeNotes(id){try{for(let k=localStorage.length-1;k>=0;k--){const key=localStorage.key(k);if(key&&key.startsWith(`bcbook-note-${id}-`))localStorage.removeItem(key)}}catch(e){}}
+async function saveFile(name,blob){const dl=window.claude&&window.claude.use?await window.claude.use("downloads"):null;
+  if(dl){await dl.save({filename:name,data:blob});return}
+  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
+const safeName=t=>(t||"報告").replace(/[\\/:*?"<>|]/g,"_");
+const plain=h=>(h||"").replace(/<[^>]+>/g," ").replace(/&nbsp;/g," ").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/\s+/g," ").trim();
+
+/* ---------- export menu ---------- */
+$("btnExport").onclick=e=>{e.stopPropagation();const m=$("expMenu");m.hidden=!m.hidden;$("btnExport").setAttribute("aria-expanded",!m.hidden)};
+document.addEventListener("click",e=>{if(!e.target.closest("#expMenu,#btnExport"))$("expMenu").hidden=true});
+$("expMenu").addEventListener("click",e=>{if(e.target.closest("button"))$("expMenu").hidden=true});
+
+/* ---------- book file export / import ---------- */
+$("btnBookOut").onclick=async()=>{if(BOOK===EMPTY)return;BOOK.pages.forEach((p,i)=>getNote(i));
+  const data=JSON.stringify({format:"report-ebook",version:1,saved:new Date().toISOString(),book:BOOK});
+  try{await saveFile(safeName(BOOK.title)+".json",new Blob([data],{type:"application/json"}));toast("已匯出書檔，其他電腦用「上傳檔案」選這個 .json 就能還原")}
+  catch(e){toast(e&&e.code==="declined"?"已取消下載":"匯出失敗，請再試一次")}};
+async function fromBookFile(f){let j;try{j=JSON.parse(await f.text())}catch(e){throw new Error("這個 .json 不是電子書的書檔。")}
+  if(!j||j.format!=="report-ebook"||!j.book||!Array.isArray(j.book.pages))throw new Error("這個 .json 不是電子書的書檔。");
+  const b=j.book;b.id="up-"+Date.now();return b}
+
+/* ---------- page organiser (reorder, delete, insert) ---------- */
+let ED=null,dragK=null;
+function edFromBook(){const B=BOOK;let prevU=-1;ED=B.pages.map((p,i)=>{if(i<2)return null;const st=p.u!==prevU;prevU=p.u;return{p,title:p.title,start:st,uname:B.units[p.u]?B.units[p.u].name:p.title,del:false}}).filter(Boolean)}
+function edSync(){$("editRows").querySelectorAll(".er").forEach(r=>{const e=ED[+r.dataset.k];if(!e)return;e.title=r.querySelector(".et").value;e.start=r.querySelector(".es").checked;
+  const un=r.querySelector(".un");if(un)e.uname=un.value;const eb=r.querySelector(".eb");if(eb)e.body=eb.value})}
+function edRender(){let n=3;
+  $("editRows").innerHTML=ED.map((e,k)=>{const num=e.del?"—":n++;const first=ED.findIndex(x=>!x.del)===k;const kind=e.isNew?(e.kind==="divider"?"分隔頁":"空白頁"):"";
+    return `<div class="er${e.start||first?" start":""}${e.del?" del":""}" draggable="true" data-k="${k}">
+      <span class="grip" title="拖拉調整順序" aria-hidden="true">⋮⋮</span><span class="pnum">${num}</span>
+      <label><input type="checkbox" class="es" ${e.start||first?"checked":""} ${first?"disabled":""}>新單元</label>
+      <input type="text" class="et" value="${esc(e.title)}" aria-label="頁面標題" ${e.del?"disabled":""}>
+      <span class="ops">${kind?`<span class="tag">${kind}</span>`:""}<button type="button" data-op="up" title="上移" aria-label="上移">↑</button><button type="button" data-op="down" title="下移" aria-label="下移">↓</button><button type="button" data-op="del">${e.del?"復原":"刪除"}</button><button type="button" data-op="div">＋分隔頁</button><button type="button" data-op="blank">＋空白頁</button></span>
+      ${(e.start||first)&&!e.del?`<input class="un" type="text" value="${esc(e.uname||e.title)}" placeholder="單元名稱" aria-label="單元名稱">`:""}
+      ${e.isNew&&!e.del?`<textarea class="eb" rows="2" placeholder="${e.kind==="divider"?"副標題（可留空）":"內文，每一行會成為一段"}">${esc(e.body||"")}</textarea>`:""}</div>`}).join("");
+  const kept=ED.filter(e=>!e.del).length;$("editStat").textContent=`共 ${kept} 頁內容${ED.length-kept?`，${ED.length-kept} 頁將刪除`:""}`}
+$("editRows").addEventListener("click",e=>{const b=e.target.closest("button[data-op]");if(!b)return;edSync();const k=+b.closest(".er").dataset.k,op=b.dataset.op;
+  if(op==="up"&&k>0)[ED[k-1],ED[k]]=[ED[k],ED[k-1]];
+  else if(op==="down"&&k<ED.length-1)[ED[k+1],ED[k]]=[ED[k],ED[k+1]];
+  else if(op==="del")ED[k].del=!ED[k].del;
+  else if(op==="div")ED.splice(k+1,0,{isNew:true,kind:"divider",title:"新的章節",start:true,uname:"新的章節",body:""});
+  else if(op==="blank")ED.splice(k+1,0,{isNew:true,kind:"blank",title:"新頁面",start:false,body:""});
+  edRender()});
+$("editRows").addEventListener("change",e=>{if(e.target.classList.contains("es")){edSync();edRender()}});
+$("editRows").addEventListener("dragstart",e=>{const r=e.target.closest(".er");if(!r)return;edSync();dragK=+r.dataset.k;r.classList.add("dragging");e.dataTransfer.effectAllowed="move";try{e.dataTransfer.setData("text/plain",String(dragK))}catch(_){}});
+$("editRows").addEventListener("dragover",e=>{if(dragK==null)return;e.preventDefault();const r=e.target.closest(".er");$("editRows").querySelectorAll(".over-a,.over-b").forEach(x=>x.classList.remove("over-a","over-b"));
+  if(r){const bb=r.getBoundingClientRect();r.classList.add(e.clientY<bb.top+bb.height/2?"over-a":"over-b")}});
+$("editRows").addEventListener("drop",e=>{if(dragK==null)return;e.preventDefault();const r=e.target.closest(".er");if(r){const bb=r.getBoundingClientRect();let t=+r.dataset.k+(e.clientY<bb.top+bb.height/2?0:1);
+  const [it]=ED.splice(dragK,1);if(t>dragK)t--;ED.splice(t,0,it)}dragK=null;edRender()});
+$("editRows").addEventListener("dragend",()=>{dragK=null;$("editRows").querySelectorAll(".dragging,.over-a,.over-b").forEach(x=>x.classList.remove("dragging","over-a","over-b"))});
+function showEdit(on){$("editBox").hidden=!on;$("tocList").hidden=on;$("btnEdit").hidden=on||BOOK===EMPTY;$("tocTitle").textContent=on?"整理頁面":"目錄";if(!on)return;edFromBook();edRender()}
+$("btnEdit").onclick=()=>showEdit(true);
+$("editCancel").onclick=()=>showEdit(false);
+$("editSave").onclick=async()=>{edSync();const B=BOOK,keep=ED.filter(e=>!e.del);if(!keep.length){toast("至少要保留一頁內容");return}
+  B.pages.forEach((p,i)=>getNote(i));purgeNotes(B.id);
+  const units=[null],pages=[B.pages[0],B.pages[1]];let u=0;
+  keep.forEach((e,k)=>{let p=e.p;const t=(e.title||"").trim()||(p?p.title:"新頁面");
+    if(e.isNew){const lines=(e.body||"").split("\n").map(s=>s.trim()).filter(Boolean);
+      p=e.kind==="divider"?{kind:"divider",note:[],html:`<div class="flowtext divider-body">${lines.map(l=>`<p>${esc(l)}</p>`).join("")}</div>`}:{kind:"blank",note:[],html:`<div class="flowtext">${lines.map(l=>`<p>${esc(l)}</p>`).join("")}</div>`}}
+    p.title=t;if(k===0||e.start){units.push({c:"",name:(e.uname||"").trim()||t});u=units.length-1}p.u=u;pages.push(p)});
+  B.units=units;B.pages=pages;relabel(B);B.sub=`${units.length-1} 個單元 · ${pages.length} 頁`;if(B.src)B.pages[0].html=coverHTML(B.title,units.length-1,pages.length-2,B.src);
+  const c=Math.min(cur,pages.length-1);mount();cur=c;paint();showEdit(false);$("toc").hidden=true;toast(`已更新：${units.length-1} 個單元、${pages.length} 頁`);try{await IDB.put("current",B)}catch(e){}};
+
+/* ---------- QR code for the shareable address ---------- */
+const QRJS=["https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js","https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.js"];
+function shareURL(){return /^https?:$/.test(location.protocol)&&!/claude|anthropic|localhost|127\.0\.0\.1/.test(location.hostname)?location.origin+location.pathname:""}
+async function qrInto(el,text,size){if(!el||!text)return false;try{if(typeof QRCode==="undefined")await loadAny(QRJS);el.innerHTML="";new QRCode(el,{text,width:size,height:size,correctLevel:QRCode.CorrectLevel.M});return true}catch(e){return false}}
+async function coverQR(){if(cur!==0||BOOK===EMPTY)return;const u=shareURL(),cv=$("paper").querySelector(".pg .cover");if(!u||!cv||cv.querySelector(".qrbox"))return;
+  const box=document.createElement("div");box.className="qrbox";box.innerHTML=`<div class="qr"></div><div><b>手機掃描開啟</b><span>${esc(u)}</span></div>`;cv.appendChild(box);
+  if(!await qrInto(box.querySelector(".qr"),u,120))box.remove()}
+
+/* ---------- handout printing ---------- */
+$("btnHandout").onclick=()=>{if(BOOK===EMPTY)return;$("hoDlg").hidden=false};
+$("hoCancel").onclick=()=>{$("hoDlg").hidden=true};
+$("hoDlg").onclick=e=>{if(e.target.id==="hoDlg")$("hoDlg").hidden=true};
+$("hoGo").onclick=async()=>{const per=$("ho3").checked?3:2,withNotes=$("hoNotes").checked,B=BOOK,pa=$("printArea"),u=shareURL();
+  $("hoDlg").hidden=true;BOOK.pages.forEach((p,i)=>getNote(i));
+  const slide=i=>`<div class="hsl"><div class="hin paper-print">${pageHTML(i).replace('<div class="toclist" id="homeToc"></div>',`<div class="toclist">${tocItems(B)}</div>`)}</div></div>`;
+  const notes=i=>{const n=getNote(i);return `<div class="hnote">${withNotes&&n.length?`<b>講師筆記</b><ul>${n.map(l=>`<li>${esc(l)}</li>`).join("")}</ul>`:""}<div class="hlines"></div></div>`};
+  let html=`<div class="hhead"><div><b>${esc(B.title)}</b><span>${esc(B.sub||"")}　·　講義</span></div>${u?`<div class="hqr"></div>`:""}</div>`;
+  for(let i=0;i<B.pages.length;i+=per){html+=`<section class="hsheet per${per}">${B.pages.slice(i,i+per).map((p,k)=>`<div class="hrow">${slide(i+k)}${notes(i+k)}</div>`).join("")}</section>`}
+  pa.innerHTML=html;pa.hidden=false;if(u)await qrInto(pa.querySelector(".hqr"),u,84);
+  await Promise.all([...pa.querySelectorAll("img")].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r})));
+  const pr=()=>{pa.innerHTML="";pa.hidden=true;removeEventListener("afterprint",pr)};addEventListener("afterprint",pr);
+  setTimeout(()=>{try{window.print()}catch(e){}setTimeout(()=>{if(!pa.hidden&&!matchMedia("print").matches){toast("如果沒有出現列印視窗，請改用 GitHub Pages 上的版本列印講義")}},1200)},150)};
+
+/* ---------- overview & full-text search ---------- */
+function ovText(i){const p=BOOK.pages[i];return(p.title+" "+plain(p.html)+" "+getNote(i).join(" "))}
+function ovRender(){const q=$("ovQ").value.trim().toLowerCase(),B=BOOK;let hits=0;
+  $("ovGrid").innerHTML=B.pages.map((p,i)=>{const t=ovText(i),low=t.toLowerCase();if(q&&!low.includes(q))return"";hits++;
+    const img=(p.html.match(/<img[^>]+src="([^"]+)"/)||[])[1],u=B.units[p.u];let snip="";
+    if(q){const at=low.indexOf(q),s=Math.max(0,at-24);snip=esc(t.slice(s,at))+"<mark class=\"hl hl-y\">"+esc(t.slice(at,at+q.length))+"</mark>"+esc(t.slice(at+q.length,at+q.length+40))}
+    else snip=esc(plain(p.html).slice(0,70));
+    return `<button type="button" class="ovc${i===cur?" now":""}" data-i="${i}"><span class="ovn">${i+1}</span>${u?`<span class="ubadge">${u.c}</span>`:""}<b>${esc(p.title)}</b>${img?`<img src="${img}" alt="" loading="lazy">`:`<span class="ovs">${snip||"&nbsp;"}</span>`}${img&&q?`<span class="ovs">${snip}</span>`:""}</button>`}).join("")||`<p class="hint">找不到「${esc($("ovQ").value)}」。</p>`;
+  $("ovStat").textContent=q?`找到 ${hits} 頁`:`共 ${B.pages.length} 頁`}
+function openOv(focusSearch){if(BOOK===EMPTY){toast("上傳檔案後才能使用總覽");return}$("ov").hidden=false;ovRender();setTimeout(()=>{(focusSearch?$("ovQ"):$("ov").querySelector(".ovc.now")||$("ovQ")).focus();const n=$("ov").querySelector(".ovc.now");n&&n.scrollIntoView({block:"center"})},0)}
+$("btnOv").onclick=()=>openOv(false);$("ovClose").onclick=()=>{$("ov").hidden=true};
+$("ovQ").addEventListener("input",ovRender);
+$("ov").addEventListener("keydown",e=>{if(e.key==="Escape"){e.stopPropagation();$("ov").hidden=true}});
+$("ovGrid").addEventListener("click",e=>{const c=e.target.closest(".ovc");if(!c)return;$("ov").hidden=true;go(+c.dataset.i)});
+
+/* ---------- laser pointer, spotlight and talk timer ---------- */
+let laser=0;const LZ=["關","紅點","聚光燈"];
+function setLaser(m){laser=m;$("app").classList.toggle("lasering",m>0);$("laser").hidden=m!==1;$("spot").hidden=m!==2;$("btnLaser").setAttribute("aria-pressed",m>0);$("btnLaser").textContent=m?"雷射筆："+LZ[m]:"雷射筆";if(m)toast(m===1?"雷射筆：紅點（按 L 切換）":"雷射筆：聚光燈（按 L 關閉）")}
+$("btnLaser").onclick=()=>setLaser((laser+1)%3);
+addEventListener("pointermove",e=>{if(!laser)return;const s=document.documentElement.style;s.setProperty("--lx",e.clientX+"px");s.setProperty("--ly",e.clientY+"px")},{passive:true});
+const TM={total:15*60,left:15*60,run:false,t:null};
+const fmt=s=>{const a=Math.abs(Math.round(s));return(s<0?"+":"")+String(Math.floor(a/60)).padStart(2,"0")+":"+String(a%60).padStart(2,"0")};
+function tmShow(){const txt=fmt(TM.left),st=TM.left<0?"over":TM.left<=120?"warn":"";[$("btnTimer"),$("tmFloat")].forEach(el=>{el.dataset.st=st});$("btnTimer").textContent="計時 "+txt;$("tmFloat").textContent=txt;$("tmFloat").hidden=!(TM.run||TM.left!==TM.total)}
+function tmTick(){TM.left--;tmShow()}
+$("btnTimer").onclick=e=>{e.stopPropagation();$("tmPop").hidden=!$("tmPop").hidden;$("tmMin").value=Math.round(TM.total/60)};
+$("tmStart").onclick=()=>{if(!TM.run){if(!TM.run&&TM.left===TM.total){TM.total=Math.max(1,Math.min(240,+$("tmMin").value||15))*60;TM.left=TM.total}TM.run=true;TM.t=setInterval(tmTick,1000);$("tmStart").textContent="暫停"}else{TM.run=false;clearInterval(TM.t);$("tmStart").textContent="繼續"}tmShow()};
+$("tmReset").onclick=()=>{TM.run=false;clearInterval(TM.t);TM.total=Math.max(1,Math.min(240,+$("tmMin").value||15))*60;TM.left=TM.total;$("tmStart").textContent="開始";tmShow()};
+document.addEventListener("click",e=>{if(!e.target.closest("#tmPop,#btnTimer"))$("tmPop").hidden=true});
+tmShow();
 setDir(dir);mount();paint();
 (async()=>{try{const b=await IDB.get("current");if(b&&b.pages&&b.pages.length&&BOOK===EMPTY){UPLOADED=b;emptyAfter()}}catch(e){}})();
 </script>
