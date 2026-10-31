@@ -1,5 +1,7 @@
 # 報告電子書
 
+彰濱秀傳癌症防治中心　陳美文製作
+
 金屬質感的右翻報告電子書。上傳 PDF、Word 自動分單元，可標色、改字色、匯出 PowerPoint。
 
 網址：https://show15820-alt.github.io/report-ebook/
