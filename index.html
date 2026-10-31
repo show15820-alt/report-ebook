@@ -883,6 +883,28 @@ h1,h2,h3,b,strong,th,.kicker,.tab .tn,.big,.cbrand .org,.cwho b,.tbtn.primary,.u
 :root[data-theme="dark"] .credit .cr-org{color:#5fd0c6}:root[data-theme="dark"] .credit .cr-by{color:#7fb2ff}
 
 .credit b{font-synthesis:weight!important;font-weight:800!important}
+
+/* ---------- cover QR code ---------- */
+.cv-right{display:flex;align-items:flex-end;gap:clamp(12px,2vw,24px)}
+.cvqr{display:grid;justify-items:center;gap:4px}
+.cvqr .qr{background:#fff;padding:5px;border-radius:6px;line-height:0;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.cvqr .qr img,.cvqr .qr canvas{display:block}
+.cvqr span{font-size:clamp(10px,min(1vw,1.7vh),13px);color:var(--muted);letter-spacing:.06em;white-space:nowrap}
+.cv-research .cvqr span,.cv-sfoot .cvqr span{color:rgba(255,255,255,.8)}
+.cv-sfoot .cvqr{margin-left:12px}
+.cvqr.float{position:absolute;right:0;bottom:0}
+.qrset{border:0;padding:0;margin:0;display:grid;gap:6px}
+.qrchk{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+/* ---------- share dialog ---------- */
+.shdlg{max-width:640px}
+.shsrc{display:flex;gap:16px;flex-wrap:wrap;font-size:14px}.shsrc:empty{display:none}
+.shsrc label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.shbody{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.shqr{flex:none;background:#fff;padding:10px;border-radius:10px;border:1px solid var(--line);line-height:0;min-width:220px;min-height:220px;display:grid;place-items:center}
+.shqr p{line-height:1.5;padding:10px}
+.shside{flex:1;min-width:220px;display:grid;gap:10px;align-content:start}
+.shrow{display:flex;gap:8px}.shrow input{flex:1;min-width:0;font:inherit;font-size:13px;padding:.45em .6em;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink)}
+.shbtns{display:flex;gap:8px;flex-wrap:wrap}
 </style>
 
 <div class="app" id="app">
@@ -890,6 +912,7 @@ h1,h2,h3,b,strong,th,.kicker,.tab .tn,.big,.cbrand .org,.cwho b,.tbtn.primary,.u
     <div class="tools">
       <div class="seg" role="group" aria-label="翻頁方向"><button type="button" id="dirR" aria-pressed="true" title="書脊在右，往右翻（直排書）">右翻</button><button type="button" id="dirL" aria-pressed="false" title="書脊在左，往左翻">左翻</button></div>
       <button class="tbtn" id="btnBrand" type="button">封面與 LOGO</button>
+      <button class="tbtn" id="btnShare" type="button">分享</button>
       <button class="tbtn" id="btnPpt" type="button" hidden>匯出 PPT</button>
       <button class="tbtn" id="btnSample" type="button" hidden>看範例書</button>
       <button class="tbtn primary" id="btnUp" type="button">上傳檔案</button>
@@ -928,6 +951,18 @@ h1,h2,h3,b,strong,th,.kicker,.tab .tn,.big,.cbrand .org,.cwho b,.tbtn.primary,.u
   </footer>
   <div class="lens" id="lens" hidden aria-hidden="true"></div>
 </div>
+<div class="toc" id="share" hidden><div class="dlg shdlg" role="dialog" aria-label="分享">
+  <h2>分享電子書</h2>
+  <div class="shsrc" id="shSrc"></div>
+  <div class="shbody"><div class="shqr" id="shQr"></div>
+    <div class="shside">
+      <label class="lg" for="shUrl">網址</label>
+      <div class="shrow"><input id="shUrl" type="text" readonly><button class="tbtn primary" id="shCopy" type="button">複製網址</button></div>
+      <div class="shbtns"><button class="tbtn" id="shLine" type="button">用 LINE 傳送</button><button class="tbtn" id="shMail" type="button">用 Email 寄出</button><button class="tbtn" id="shDl" type="button">下載 QR Code 圖片</button><button class="tbtn" id="shMore" type="button" hidden>更多分享方式</button></div>
+      <p class="hint" id="shNote"></p>
+    </div></div>
+  <div class="drow"><button class="tbtn" id="shClose" type="button">關閉</button></div>
+</div></div>
 <div class="ov" id="ov" hidden role="dialog" aria-label="頁面總覽">
   <header class="ovh"><b>頁面總覽</b><span class="ovn" id="ovN"></span><div class="ovf" id="ovF"></div>
     <label class="ovz">縮圖大小<input type="range" id="ovZ" min="140" max="380" step="10" value="220"></label>
@@ -973,6 +1008,12 @@ h1,h2,h3,b,strong,th,.kicker,.tab .tn,.big,.cbrand .org,.cwho b,.tbtn.primary,.u
   <div class="fld"><label for="bTitle">封面標題（空白就用檔名）</label><input id="bTitle" type="text" autocomplete="off"></div>
   <div class="fld"><label for="bSub">副標題</label><input id="bSub" type="text" autocomplete="off" placeholder="例如：以 Google Apps Script 建立自動備份流程"></div>
   <div class="fld"><label for="bCo">共同作者（用頓號或逗號分開）</label><input id="bCo" type="text" autocomplete="off" placeholder="例如：王小明、林大華"></div>
+  <fieldset class="qrset"><legend class="lg">封面 QR Code</legend>
+    <label class="qrchk"><input type="checkbox" id="bQr">在封面右下角放 QR Code</label>
+    <div class="grid2">
+      <div class="fld"><label for="bQrUrl">QR Code 連結（空白就用本電子書網址）</label><input id="bQrUrl" type="url" autocomplete="off" placeholder="例如：講義下載或回饋問卷的網址"></div>
+      <div class="fld"><label for="bQrCap">QR Code 說明文字</label><input id="bQrCap" type="text" autocomplete="off" placeholder="手機掃描開啟電子書"></div>
+    </div></fieldset>
   <fieldset><legend class="lg">封面樣式</legend><div class="cvstyles" id="bStyle">
     <span class="cvg">醫學專業</span>
     <label><input type="radio" name="cvs" value="clinical"><i class="sw-clinical"></i>臨床心電</label>
@@ -1101,7 +1142,7 @@ function pageHTML(i){const p=BOOK.pages[i],u=BOOK.units[p.u],n=BOOK.pages.length
 function noteKey(){return `bcbook-note-${BOOK.id}-${cur}`}
 function paint(){
   const B=BOOK,p=B.pages[cur];
-  $("paper").innerHTML=pageHTML(cur);$("paper").scrollTop=0;runAfter(p);applyBrand();fitTitle();fitText();fitTitle();placeInk();inkHint();fitToc();checkMore();if(Z&&Z.on)lensBuild();updEdges();
+  $("paper").innerHTML=pageHTML(cur);$("paper").scrollTop=0;runAfter(p);applyBrand();coverQR();fitTitle();fitText();fitTitle();placeInk();inkHint();fitToc();checkMore();if(Z&&Z.on)lensBuild();updEdges();
   $("count").textContent=`${cur+1} / ${B.pages.length}`;
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",+t.dataset.u===p.u));
   document.querySelectorAll(".dot").forEach((d,i)=>d.setAttribute("aria-current",i===cur));
@@ -1212,6 +1253,7 @@ $("btnSample").onclick=async()=>{const b=$("btnSample");
 document.addEventListener("keydown",e=>{
   if(e.target.closest&&e.target.closest("input,textarea,[contenteditable]"))return;
   if(!$("ov").hidden){ovKey(e);return}
+  if(!$("share").hidden){if(e.key==="Escape")$("share").hidden=true;return}
   if(!$("brand").hidden){if(e.key==="Escape")$("brand").hidden=true;return}
   if(!$("up").hidden){if(e.key==="Escape")closeUp();return}
   if(!$("blank").hidden){$("blank").hidden=true;e.preventDefault();return}
@@ -1861,6 +1903,37 @@ addEventListener("wheel",e=>{if(!Z.on||$("lens").hidden)return;e.preventDefault(
 $("paper").addEventListener("scroll",()=>{if(Z.clone)Z.clone.scrollTop=$("paper").scrollTop},{passive:true});
 $("paper").addEventListener("click",()=>{if(Z.on)setTimeout(lensBuild,0)});
 if(document.fonts)document.fonts.ready.then(()=>{if(Z.on)lensBuild()});
+/* ---------- QR code and share link ---------- */
+const SITE="https://show15820-alt.github.io/report-ebook/";
+const QRJS=["https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js","https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"];
+/* the e-book's own address: the page's address when it is served from a real website, otherwise the published site */
+function shareURL(){return /^https?:$/.test(location.protocol)&&!/claude|anthropic|localhost|127\.0\.0\.1|usercontent/.test(location.hostname)?location.origin+location.pathname:SITE}
+async function qrInto(el,text,size){if(!el||!text)return false;
+  try{if(typeof QRCode==="undefined")await loadAny(QRJS);el.innerHTML="";new QRCode(el,{text,width:size,height:size,colorDark:"#0f2236",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});return true}catch(e){return false}}
+async function coverQR(){const cv=$("paper").querySelector(".cvpro");if(!cv||!BRAND.qr||cv.querySelector(".cvqr"))return;
+  const url=BRAND.qrUrl||shareURL(),cap=BRAND.qrCap||(BRAND.qrUrl?"手機掃描開啟":"手機掃描開啟電子書");
+  const box=document.createElement("div");box.className="cvqr";box.innerHTML=`<div class="qr"></div><span>${esc(cap)}</span>`;
+  const foot=cv.querySelector(".cv-bot")||cv.querySelector(".cv-sfoot");
+  if(foot){const t=foot.querySelector("time");if(t){const g=document.createElement("div");g.className="cv-right";t.replaceWith(g);g.append(t,box)}else foot.appendChild(box)}
+  else{box.classList.add("float");cv.appendChild(box)}
+  const sz=Math.round(Math.max(64,Math.min(120,$("paper").clientHeight*.13)));
+  if(!await qrInto(box.querySelector(".qr"),url,sz))box.remove()}
+function shareSrc(){return $("shSrc").querySelector("input:checked")?.value==="qr"&&BRAND.qrUrl?BRAND.qrUrl:shareURL()}
+async function shareRender(){const u=shareSrc();$("shUrl").value=u;const ok=await qrInto($("shQr"),u,200);
+  if(!ok)$("shQr").innerHTML='<p class="hint">QR Code 元件載入失敗，請確認網路連線；網址仍可複製使用。</p>';
+  $("shNote").textContent=u===BRAND.qrUrl?"這是你在「封面與 LOGO」設定的 QR Code 連結。":"對方打開的是電子書工具本身。你上傳的檔案只存在自己的瀏覽器裡，不會跟著網址分享出去；要分享內容，請用「匯出 PPT」後再傳檔案。"}
+function openShare(){closeMenus&&closeMenus();
+  $("shSrc").innerHTML=BRAND.qrUrl?`<label><input type="radio" name="shs" value="site" checked>電子書網址</label><label><input type="radio" name="shs" value="qr">封面 QR Code 連結</label>`:"";
+  $("shSrc").querySelectorAll("input").forEach(r=>r.onchange=shareRender);$("shMore").hidden=!navigator.share;$("share").hidden=false;shareRender()}
+$("btnShare").onclick=openShare;$("shClose").onclick=()=>$("share").hidden=true;
+$("share").onclick=e=>{if(e.target.id==="share")$("share").hidden=true};
+$("shCopy").onclick=async()=>{const u=$("shUrl").value;try{await navigator.clipboard.writeText(u);toast("已複製網址")}catch(e){$("shUrl").select();try{document.execCommand("copy");toast("已複製網址")}catch(_){toast("請手動選取網址複製")}}};
+$("shLine").onclick=()=>window.open("https://line.me/R/msg/text/?"+encodeURIComponent((BOOK!==EMPTY?cleanTitle(BOOK.title)+"\n":"")+$("shUrl").value),"_blank","noopener");
+$("shMail").onclick=()=>{location.href="mailto:?subject="+encodeURIComponent(BOOK!==EMPTY?cleanTitle(BOOK.title):"電子書")+"&body="+encodeURIComponent($("shUrl").value)};
+$("shMore").onclick=()=>navigator.share({title:BOOK!==EMPTY?cleanTitle(BOOK.title):document.title,url:$("shUrl").value}).catch(()=>{});
+$("shDl").onclick=()=>{const c=$("shQr").querySelector("canvas"),im=$("shQr").querySelector("img");const src=c?c.toDataURL("image/png"):im&&im.src;if(!src){toast("QR Code 尚未產生");return}
+  const pad=24,k=document.createElement("canvas"),w=(c?c.width:200)+pad*2;k.width=w;k.height=w;const g=k.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,w,w);
+  const img=new Image();img.onload=()=>{g.drawImage(img,pad,pad);const a=document.createElement("a");a.href=k.toDataURL("image/png");a.download="QRCode.png";document.body.appendChild(a);a.click();a.remove()};img.src=src};
 /* ---------- professional cover: each piece of information appears once ---------- */
 function cleanTitle(t){t=String(t||"").replace(/\.[a-z0-9]{2,5}$/i,"");
   t=t.replace(/[_＿]+/g," ").replace(/\b\d{2,4}\s*dpi\b/ig,"").replace(/\b(final|draft|v\d+(\.\d+)*)\b/ig,"").replace(/[（(]?(定稿|最終版|修正版|初稿)[）)]?/g,"");
@@ -1934,7 +2007,7 @@ function coverPro(){
   <div class="cv-mid">${ev}${h1}${sub}<span class="cv-orn"><i></i><b></b><i></i></span>${who}${date}</div>
   <footer class="cv-foot"></footer></div>`}
 /* ---------- brand: logo, organisation and presenter on the cover, header and PPT ---------- */
-const BRAND={org:"彰濱",name:"",role:"",event:"",date:"",title:"",sub:"",co:"",style:"split",logo:null,lw:0,lh:0,cover:true,head:true,top:true,ppt:true};
+const BRAND={org:"彰濱",name:"",role:"",event:"",date:"",title:"",sub:"",co:"",style:"split",qr:false,qrUrl:"",qrCap:"",logo:null,lw:0,lh:0,cover:true,head:true,top:true,ppt:true};
 try{const s=JSON.parse(LS.get("bcbook-brand")||"null");if(s)Object.assign(BRAND,s,{logo:null})}catch(e){}
 function brandImg(cls){return BRAND.logo?`<img class="${cls}" src="${BRAND.logo}" alt="${esc(BRAND.org||"LOGO")}">`:""}
 function fmtDate(d){const m=String(d||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?`${m[1]} 年 ${+m[2]} 月 ${+m[3]} 日`:(d||"")}
@@ -1954,7 +2027,7 @@ let bLogoTmp=null;
 function today(){const t=new Date();t.setMinutes(t.getMinutes()-t.getTimezoneOffset());return t.toISOString().slice(0,10)}
 function showLogoPrev(){const im=$("bLogoPrev");im.hidden=!bLogoTmp;if(bLogoTmp)im.src=bLogoTmp.data;$("bLogoDel").hidden=!bLogoTmp;$("bgrm").hidden=!bLogoTmp;$("bLogoLbl").textContent=bLogoTmp?"更換 LOGO":"選擇 LOGO 檔"}
 function openBrand(){bLogoTmp=BRAND.logo?{data:BRAND.logo,w:BRAND.lw,h:BRAND.lh,t:BRAND.lt}:null;bLogoOrig=bLogoTmp;bgState(false);
-  $("bOrg").value=BRAND.org;$("bName").value=BRAND.name;$("bRole").value=BRAND.role;$("bEvent").value=BRAND.event;$("bDate").value=BRAND.date||today();$("bTitle").value=BRAND.title||"";$("bSub").value=BRAND.sub||"";$("bCo").value=BRAND.co||"";
+  $("bOrg").value=BRAND.org;$("bName").value=BRAND.name;$("bRole").value=BRAND.role;$("bEvent").value=BRAND.event;$("bDate").value=BRAND.date||today();$("bTitle").value=BRAND.title||"";$("bSub").value=BRAND.sub||"";$("bCo").value=BRAND.co||"";$("bQr").checked=!!BRAND.qr;$("bQrUrl").value=BRAND.qrUrl||"";$("bQrCap").value=BRAND.qrCap||"";
   {const r=document.querySelector(`#bStyle input[value="${BRAND.style||"split"}"]`);if(r)r.checked=true}
   $("bOnCover").checked=BRAND.cover;$("bOnHead").checked=BRAND.head;$("bOnTop").checked=BRAND.top;$("bOnPpt").checked=BRAND.ppt;
   showLogoPrev();$("brand").hidden=false;setTimeout(()=>$("bOrg").focus(),0)}
@@ -2005,7 +2078,7 @@ let bgT;$("bgTol").oninput=()=>{clearTimeout(bgT);bgT=setTimeout(runBg,120)};
 $("bgUndo").onclick=()=>{if(!bLogoOrig)return;bLogoTmp=bLogoOrig;showLogoPrev();bgState(false)};
 $("bCancel").onclick=()=>$("brand").hidden=true;
 $("brand").onclick=e=>{if(e.target.id==="brand")$("brand").hidden=true};
-$("bSave").onclick=async()=>{Object.assign(BRAND,{org:$("bOrg").value.trim(),name:$("bName").value.trim(),role:$("bRole").value.trim(),event:$("bEvent").value.trim(),date:$("bDate").value,title:$("bTitle").value.trim(),sub:$("bSub").value.trim(),co:$("bCo").value.trim(),style:(document.querySelector("#bStyle input:checked")||{}).value||"split",
+$("bSave").onclick=async()=>{Object.assign(BRAND,{org:$("bOrg").value.trim(),name:$("bName").value.trim(),role:$("bRole").value.trim(),event:$("bEvent").value.trim(),date:$("bDate").value,title:$("bTitle").value.trim(),sub:$("bSub").value.trim(),co:$("bCo").value.trim(),qr:$("bQr").checked,qrUrl:$("bQrUrl").value.trim(),qrCap:$("bQrCap").value.trim(),style:(document.querySelector("#bStyle input:checked")||{}).value||"split",
     cover:$("bOnCover").checked,head:$("bOnHead").checked,top:$("bOnTop").checked,ppt:$("bOnPpt").checked,
     logo:bLogoTmp?bLogoTmp.data:null,lw:bLogoTmp?bLogoTmp.w:0,lh:bLogoTmp?bLogoTmp.h:0,lt:!!(bLogoTmp&&bLogoTmp.t)});
   const{logo,...rest}=BRAND;LS.set("bcbook-brand",JSON.stringify(rest));
