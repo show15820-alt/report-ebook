@@ -1085,7 +1085,7 @@ const IDB={db:null,
   async put(k,v){const db=await this.open();return new Promise((res,rej)=>{const tx=db.transaction("books","readwrite");tx.objectStore("books").put(v,k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})},
   async del(k){const db=await this.open();return new Promise((res,rej)=>{const tx=db.transaction("books","readwrite");tx.objectStore("books").delete(k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})},
   async get(k){const db=await this.open();return new Promise((res,rej)=>{const r=db.transaction("books").objectStore("books").get(k);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}};
-const EMPTY={id:"empty",title:"彰濱秀傳癌症防治中心 陳美文製作",sub:"尚未上傳檔案",foot:"上傳檔案後，內容會顯示在這裡",units:[null],pages:[{u:0,title:"開始",note:[],after:"empty",html:`<div class="cover empty">
+const EMPTY={id:"empty",title:"彰濱秀傳癌症防治中心 陳美文製作",sub:"尚未上傳檔案",foot:"上傳檔案後，內容會顯示在這裡　·　版本 2026.10.31-QR分享",units:[null],pages:[{u:0,title:"開始",note:[],after:"empty",html:`<div class="cover empty">
   <div class="kicker"><span class="credit"><b class="cr-org">彰濱秀傳癌症防治中心</b><b class="cr-by">陳美文製作</b></span></div>
   <h1>上傳檔案，開始製作報告</h1>
   <p class="sub">目前沒有任何資料。選擇一份 PDF 或 Word，系統會依標題自動切成單元，做成可以右翻的電子書。</p>
